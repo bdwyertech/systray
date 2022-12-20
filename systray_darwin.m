@@ -272,16 +272,16 @@ void runInMainThread(SEL method, id object) {
                   waitUntilDone: YES];
 }
 
-void setIcon(const char* iconBytes, int length, bool template) {
-  NSData* buffer = [NSData dataWithBytes: iconBytes length:length];
+void setIcon(char* iconBytes, int length, bool template) {
+  NSData* buffer = [NSData dataWithBytesNoCopy: iconBytes length:length freeWhenDone:true];
   NSImage *image = [[NSImage alloc] initWithData:buffer];
   [image setSize:NSMakeSize(16, 16)];
   image.template = template;
   runInMainThread(@selector(setIcon:), (id)image);
 }
 
-void setMenuItemIcon(const char* iconBytes, int length, int menuId, bool template) {
-  NSData* buffer = [NSData dataWithBytes: iconBytes length:length];
+void setMenuItemIcon(char* iconBytes, int length, int menuId, bool template) {
+  NSData* buffer = [NSData dataWithBytesNoCopy: iconBytes length:length freeWhenDone:true];
   NSImage *image = [[NSImage alloc] initWithData:buffer];
   [image setSize:NSMakeSize(16, 16)];
   image.template = template;
